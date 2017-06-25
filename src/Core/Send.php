@@ -182,6 +182,32 @@ trait Send
 
         return $this->processRequest('sendMessage', 'Message');
     }
+    
+    /**
+     * \brief Send a text message.
+     * \details Use this method to send text messages. [API reference](https://core.telegram.org/bots/api#sendmessage)
+     * @param $text Text of the message.
+     * @param $reply_markup <i>Optional</i>. Reply_markup of the message.
+     * @param $parse_mode <i>Optional</i>. Parse mode of the message.
+     * @param $disable_web_preview <i>Optional</i>. Disables link previews for links in this message.
+     * @param $disable_notification <i>Optional</i>. Sends the message silently.
+     * @return Message|false Message sent on success, false otherwise.
+     */
+    
+    public function sendMessageChannel($chat_id, $text, string $reply_markup = null, int $reply_to = null, string $parse_mode = 'HTML', bool $disable_web_preview = true, bool $disable_notification = false)
+    {
+        $this->parameters = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'parse_mode' => $parse_mode,
+            'disable_web_page_preview' => $disable_web_preview,
+            'reply_markup' => $reply_markup,
+            'reply_to_message_id' => $reply_to,
+            'disable_notification' => $disable_notification
+        ];
+
+        return $this->processRequest('sendMessage', 'Message');
+    }
 
     /**
      * \brief Forward a message.
